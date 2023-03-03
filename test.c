@@ -121,7 +121,7 @@ void delete_midList(int pos){
 
 int main()
 {
-    CreateLinkedList(1);
+	CreateLinkedList(1);
 	insert_tail(2);
 	insert_tail(3);
 	insert_midList(2, 4);
@@ -129,7 +129,7 @@ int main()
 	printf("%d %d %d %d\n", head->x, head->next->x, head->next->next->x, head->next->next->next->x);
 	printf("Print list using tail as reference point:\n");
 	printf("%d %d %d %d\n\n", tail->prev->prev->prev->x, tail->prev->prev->x, tail->prev->x, tail->x);
-	
+
 	printf("Check if the input exception works: \n");
 	insert_midList(5, 10);
 	printf("\n");
