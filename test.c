@@ -12,6 +12,21 @@ struct node{
 struct node *head,*tail;
 int data_count;
 
+void display(){
+    int i=0;
+    printf("======================\n");
+    printf("|| Index || Element ||\n");
+    printf("======================\n");
+    for(struct node *curr=head; curr!=NULL; curr=curr->next){
+        printf("||%7d||%9d||\n", i, curr->x);
+        printf("----------------------\n");
+        i++;
+    }
+    system("pause");
+    system("cls");
+    return;
+}
+
 void CreateLinkedList(int value){
 	printf("Inputted Value: %d\n", value);
 	struct node *newnode =(struct node*)malloc(sizeof(struct node));
@@ -78,6 +93,10 @@ void insert_midList(int pos, int value){
 }
 
 void delete_head(){
+    if(head==NULL){
+        printf("Please create a new linked list first.\n");
+        return;
+    }
 	printf("Deleted item: %d\n", head->x);
 	head = head->next;
 	head->prev = NULL;
@@ -85,6 +104,10 @@ void delete_head(){
 }
 
 void delete_tail(){
+    if(head==NULL){
+        printf("Please create a new linked list first.\n");
+        return;
+    }
 	printf("Deleted item : %d\n", tail->x);
 	tail = tail->prev;
 	tail->next = NULL;
@@ -92,6 +115,11 @@ void delete_tail(){
 }
 
 void delete_midList(int pos){
+    if(head==NULL){
+        printf("Please create a new linked list first.\n");
+        return;
+    }
+
 	if(pos==0){
 		delete_head();
 		return;
@@ -122,45 +150,173 @@ void delete_midList(int pos){
     return;
 }
 
+void menu_insert(){
+    int ch;
+    do
+    {
+        printf("==========Insert Menu==========\n");
+        printf("1. Insert at the Beginning\n");
+        printf("2. Insert at the End\n");
+        printf("3. Insert at Custom Position\n");
+        printf("0. Exit\n");
+        printf("Input your choice:");
+        scanf("%d", &ch);getchar();
+        system("cls");
+    } while (0>ch || ch>3);
+
+    switch (ch)
+    {
+    case 0:
+        system("cls");
+        printf("Thank you for using the program!\n");
+        exit(1);
+        break;
+
+    case 1:
+        int insertHead;
+        printf("Input your number:");
+        scanf("%d", &insertHead);getchar();
+        if(data_count==0)CreateLinkedList(insertHead);
+        else insert_head(insertHead);
+        system("cls");
+        break;
+
+    case 2:
+        int insertTail;
+        printf("Input your number:");
+        scanf("%d", &insertTail);getchar();
+        if(data_count==0)CreateLinkedList(insertTail);
+        else insert_tail(insertTail);
+        system("cls");
+        break;
+
+    case 3:
+        int insertMid;
+        printf("Insert your number:");
+        scanf("%d", &insertMid);getchar();
+        printf("Insert the position(Index):");
+        int pos;
+        scanf("%d", &pos);getchar();
+        if(data_count==0 && pos == 0) CreateLinkedList(insertMid);
+        else insert_midList(pos, insertMid);
+        system("cls");
+        break;
+
+    default:
+        printf("Invalid Input\n");
+        system("pause");
+        system("cls");
+        return;
+    }
+    display();
+    return;
+}
+
+void menu_delete(){
+    int ch;
+    do
+    {
+        printf("==========Delete Menu==========\n");
+        printf("1. Delete at the Beginning\n");
+        printf("2. Delete at the End\n");
+        printf("3. Delete at Custom Position\n");
+        printf("0. Exit\n");
+        printf("Input your choice:");
+        scanf("%d", &ch);getchar();
+        system("cls");
+    } while (0>ch || ch>3);
+
+    switch(ch){
+        case 0:
+            system("cls");
+            printf("Thank you for using the program!\n");
+            exit(1);
+            break;
+        
+        case 1:
+            delete_head();
+            printf("Succeed\n");
+            break;
+        
+        case 2:
+            delete_tail();
+            printf("Succedd\n");
+            break;
+        
+        case 3:
+            int i=0;
+            printf("======================\n");
+            printf("|| Index || Element ||\n");
+            printf("======================\n");
+            for(struct node *curr=head; curr!=NULL; curr=curr->next){
+                printf("||%7d||%9d||\n", i, curr->x);
+                printf("----------------------\n");
+                i++;
+            }
+            int pos;
+            printf("Input the position of the element(Index):");
+            scanf("%d", &pos);getchar();
+            if(0<=pos<data_count){
+                delete_midList(pos);
+            }
+            else{
+                printf("Invalid Positiomn\n");
+                printf("Canceled\n");
+            }
+            break;
+        
+        default:
+            printf("Invalid Input\n");
+            break;
+    }
+    system("cls");
+    display();
+}
+
+void print_menu(){
+    while(1){
+        int ch;
+        do
+        {
+            printf("=========MENU=========\n");
+            printf("1. Insert\n");
+            printf("2. Delete\n");
+            printf("3. Display\n");
+            printf("0. Exit\n");
+            printf("Input your choice:");
+            scanf("%d", &ch); getchar();
+            system("cls");
+        } while (ch<0 || ch>3);
+        
+        switch (ch)
+        {
+        case 0:
+            system("cls");
+            printf("Thank you for using the program!\n");
+            exit(1);
+            break;
+        
+        case 1:
+            menu_insert();
+            break;
+
+        case 2:
+            menu_delete();
+            break;
+        
+        case 3:
+            display();
+            break;
+        
+        default:
+            printf("Invalid Input\n");
+            break;
+        }
+    }
+}
+
 int main()
 {
-	CreateLinkedList(1);
-	insert_tail(2);
-	insert_tail(3);
-	insert_midList(2, 4);
-	printf("Print list using head as reference point:\n");
-	printf("%d %d %d %d\n", head->x, head->next->x, head->next->next->x, head->next->next->next->x);
-	printf("Print list using tail as reference point:\n");
-	printf("%d %d %d %d\n\n", tail->prev->prev->prev->x, tail->prev->prev->x, tail->prev->x, tail->x);
-
-	printf("Check if the input exception works: \n");
-	insert_midList(5, 10);
-	printf("\n");
-
-	delete_head();
-	printf("Print list using head as reference point:\n");
-	printf("%d %d %d\n", head->x, head->next->x, head->next->next->x);
-	printf("Print list using tail as reference point:\n");
-	printf("%d %d %d\n\n", tail->prev->prev->x, tail->prev->x, tail->x);
-
-	delete_tail();
-	printf("Print list using head as reference point:\n");
-	printf("%d %d\n", head->x, head->next->x);
-	printf("Print list using tail as reference point:\n");
-	printf("%d %d\n\n", tail->prev->x, tail->x);
-
-	insert_tail(3);
-	printf("Input check:\n");
-	printf("%d %d %d %d\n\n", head->x, head->next->x, tail->prev->x, tail->x);
-
-	printf("Check if delete exception works:\n");
-	delete_midList(10);
-	printf("\n");
-
-	delete_midList(1);
-	printf("Print list using head as reference point:\n");
-	printf("%d %d\n", head->x, head->next->x);
-	printf("Print list using tail as reference point:\n");
-	printf("%d %d\n", tail->prev->x, tail->x);
+    print_menu();
     return 0;
 }
