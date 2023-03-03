@@ -1,3 +1,6 @@
+//Edrico Putra Pramana
+//LB20 - 2602078133
+
 #include <stdlib.h>
 #include <stdio.h>
 
