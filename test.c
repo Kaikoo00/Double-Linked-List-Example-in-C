@@ -18,6 +18,7 @@ void CreateLinkedList(int value){
 	tail=head;
 	head->next=tail;head->prev=NULL;
 	tail->prev=head;tail->next=NULL;
+    data_count++;
 }
 
 void insert_head(int value){
@@ -27,6 +28,7 @@ void insert_head(int value){
 	head->prev=newnode;
 	newnode->next = head;
 	head = newnode;
+    data_count++;
 }
 
 void insert_tail(int value){
@@ -37,6 +39,7 @@ void insert_tail(int value){
 	newnode->prev = tail;
 	tail->next=newnode;
 	tail = newnode;
+    data_count++;
 }
 
 void insert_midList(int pos, int value){
@@ -67,18 +70,22 @@ void insert_midList(int pos, int value){
 	newnode->prev = prev;
 	newnode->next = curr;
 	curr->prev = newnode;
+    data_count++;
+    return;
 }
 
 void delete_head(){
 	printf("Deleted item: %d\n", head->x);
 	head = head->next;
 	head->prev = NULL;
+    data_count--;
 }
 
 void delete_tail(){
 	printf("Deleted item : %d\n", tail->x);
 	tail = tail->prev;
 	tail->next = NULL;
+    data_count--;
 }
 
 void delete_midList(int pos){
@@ -108,14 +115,16 @@ void delete_midList(int pos){
 	prev->next = next;
 	next->prev = prev;
 	free(curr);
+    data_count--;
+    return;
 }
 
 int main()
 {
-    CreateLinkedList(1);data_count++;
-	insert_tail(2);data_count++;
-	insert_tail(3);data_count++;
-	insert_midList(2, 4);data_count++;
+    CreateLinkedList(1);
+	insert_tail(2);
+	insert_tail(3);
+	insert_midList(2, 4);
 	printf("Print list using head as reference point:\n");
 	printf("%d %d %d %d\n", head->x, head->next->x, head->next->next->x, head->next->next->next->x);
 	printf("Print list using tail as reference point:\n");
@@ -125,19 +134,19 @@ int main()
 	insert_midList(5, 10);
 	printf("\n");
 
-	delete_head();data_count--;
+	delete_head();
 	printf("Print list using head as reference point:\n");
 	printf("%d %d %d\n", head->x, head->next->x, head->next->next->x);
 	printf("Print list using tail as reference point:\n");
 	printf("%d %d %d\n\n", tail->prev->prev->x, tail->prev->x, tail->x);
 
-	delete_tail();data_count--;
+	delete_tail();
 	printf("Print list using head as reference point:\n");
 	printf("%d %d\n", head->x, head->next->x);
 	printf("Print list using tail as reference point:\n");
 	printf("%d %d\n\n", tail->prev->x, tail->x);
 
-	insert_tail(3);data_count++;
+	insert_tail(3);
 	printf("Input check:\n");
 	printf("%d %d %d %d\n\n", head->x, head->next->x, tail->prev->x, tail->x);
 
@@ -145,7 +154,7 @@ int main()
 	delete_midList(10);
 	printf("\n");
 
-	delete_midList(1);data_count--;
+	delete_midList(1);
 	printf("Print list using head as reference point:\n");
 	printf("%d %d\n", head->x, head->next->x);
 	printf("Print list using tail as reference point:\n");
