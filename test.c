@@ -168,8 +168,7 @@ void menu_insert(){
     {
     case 0:
         system("cls");
-        printf("Thank you for using the program!\n");
-        exit(1);
+        return;
         break;
 
     case 1:
@@ -229,8 +228,7 @@ void menu_delete(){
     switch(ch){
         case 0:
             system("cls");
-            printf("Thank you for using the program!\n");
-            exit(1);
+            return;
             break;
         
         case 1:
