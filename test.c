@@ -13,12 +13,12 @@ struct node *head,*tail;
 int data_count;
 
 void display(){
-	if(!data_count){
-		printf("Linked List is still empty!\n");
-		system("pause");
-		system("cls");
-		return;
-	}
+    if(!data_count){
+        printf("Linked List is still empty!\n");
+        system("pause");
+        system("cls");
+        return;
+    }
     int i=0;
     printf("======================\n");
     printf("|| Index || Element ||\n");
